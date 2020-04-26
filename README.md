@@ -1,0 +1,2 @@
+# self-scripts
+scripts-self
