@@ -1,0 +1,6 @@
+---
+# vars file for artifactoryrole
+artifactory_version: app
+artifactory_dir: /opt/{{ artifactory_version }}
+artifactory_tar_zip: jfrog-artifactory-oss-7.4.3-linux.tar.gz
+artifactory_url: https://jfrog.bintray.com/artifactory/org/artifactory/oss/jfrog-artifactory-oss/7.4.3/jfrog-artifactory-oss-7.4.3-linux.tar.gz

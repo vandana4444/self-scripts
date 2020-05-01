@@ -1,0 +1,22 @@
+---
+- hosts: app
+  become: yes
+  tasks:
+   - name: create installation directory
+     file:
+      path: /jfrog/artifactory/var/etc/
+      state: directory
+
+   - name: Go to the folder
+     shell: cd /jfrog/artifactory/var/etc/
+
+   - name: Touch a file
+     file:
+      path: ./system.yaml
+      state: touch
+
+   - name: change ownership
+     command: chown -R 1030:1030 /jfrog/artifactory/var
+
+   - name: start container
+     command: docker run --name artifactory -v /jfrog/artifactory/var/:/var/opt/jfrog/artifactory -d -p 8083:8081 -p 8082:8082 docker.bintray.io/jfrog/artifactory-oss:latest

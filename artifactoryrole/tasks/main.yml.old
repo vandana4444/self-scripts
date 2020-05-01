@@ -1,0 +1,25 @@
+---
+# tasks file for artifactoryrole
+- name: artifactory | Install dependencies
+  yum: pkg={{ item }} state=installed
+  with_items:
+    - unzip
+    - net-tools
+    - java-1.8.0-openjdk
+    - java-1.8.0-openjdk-devel
+  tags: artifactory
+
+- name: install zip file 
+  get_url: url={{ artifactory_url }}  dest=/opt/{{ artifactory_tar_zip }}
+
+- name: extract file
+  shell: unzip /opt/{{ artifactory_zip }} -d /opt  creates={{ artifactory_dir }}
+
+- name: installing artifactory
+  shell: cd {{ artifactory_dir }}/bin
+
+- name: start artifactory
+  shell: name=artifactory state=started  
+
+- name: Adding the path in the Profile files
+  lineinfile: dest=/home/ec2-user/.bash_profile line='export ARTIFACTORY_HOME={{ artifactory_dir }}' state=present
